@@ -12,8 +12,8 @@ package dto;
 public class PeopleDTO {
     private String name;
     private String height;
-    private String hairColor;
-    private String eyeColor;
+    private String hair_color;
+    private String eye_color;
     private String gender;
 
     public PeopleDTO() {
@@ -22,8 +22,8 @@ public class PeopleDTO {
     public PeopleDTO(String name, String height, String hairColor, String eyeColor, String gender) {
         this.name = name;
         this.height = height;
-        this.hairColor = hairColor;
-        this.eyeColor = eyeColor;
+        this.hair_color = hairColor;
+        this.eye_color = eyeColor;
         this.gender = gender;
     }
 
