@@ -19,11 +19,11 @@ public class PeopleDTO {
     public PeopleDTO() {
     }
 
-    public PeopleDTO(String name, String height, String hairColor, String eyeColor, String gender) {
+    public PeopleDTO(String name, String height, String hair_color, String eye_color, String gender) {
         this.name = name;
         this.height = height;
-        this.hair_color = hairColor;
-        this.eye_color = eyeColor;
+        this.hair_color = hair_color;
+        this.eye_color = eye_color;
         this.gender = gender;
     }
 
