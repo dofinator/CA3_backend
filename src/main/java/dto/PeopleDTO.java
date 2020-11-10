@@ -43,20 +43,20 @@ public class PeopleDTO {
         this.height = height;
     }
 
-    public String getHairColor() {
-        return hairColor;
+    public String getHair_color() {
+        return hair_color;
     }
 
-    public void setHairColor(String hairColor) {
-        this.hairColor = hairColor;
+    public void setHair_color(String hair_color) {
+        this.hair_color = hair_color;
     }
 
-    public String getEyeColor() {
-        return eyeColor;
+    public String getEye_color() {
+        return eye_color;
     }
 
-    public void setEyeColor(String eyeColor) {
-        this.eyeColor = eyeColor;
+    public void setEye_color(String eye_color) {
+        this.eye_color = eye_color;
     }
 
     public String getGender() {
@@ -66,6 +66,8 @@ public class PeopleDTO {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+    
     
     
 }
