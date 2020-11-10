@@ -2,29 +2,29 @@ package dto;
 
 public class StarshipDTO {
 
-    private int name;
-    private int model;
+    private String name;
+    private String model;
     private int cost_in_credits;
 
-    public StarshipDTO(int name, int model, int cost_in_credits) {
+    public StarshipDTO(String name, String model, int cost_in_credits) {
         this.name = name;
         this.model = model;
         this.cost_in_credits = cost_in_credits;
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public int getModel() {
+    public String getModel() {
         return model;
     }
 
-    public void setModel(int model) {
+    public void setModel(String model) {
         this.model = model;
     }
 
