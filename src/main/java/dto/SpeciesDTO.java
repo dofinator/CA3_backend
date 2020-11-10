@@ -1,13 +1,13 @@
 
 package dto;
 
-public class Species {
+public class SpeciesDTO {
     
     private String name;
     private String classification;
     private String designation;
 
-    public Species(String name, String classification, String designation) {
+    public SpeciesDTO(String name, String classification, String designation) {
         this.name = name;
         this.classification = classification;
         this.designation = designation;
