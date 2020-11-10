@@ -2,6 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dto.CombinedDTO;
 import utils.EMF_Creator;
 import facades.FacadeExample;
 import java.util.concurrent.ExecutionException;
@@ -22,6 +23,7 @@ public class StarWarsResource {
     private static final ExecutorService ES = Executors.newCachedThreadPool();
     private static final FacadeExample FACADE = FacadeExample.getFacadeExample(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static String cachedResponse;
     
 
     @GET
@@ -44,7 +46,14 @@ public class StarWarsResource {
     @Produces({MediaType.APPLICATION_JSON})
     public String getStarWarsParrallel() throws InterruptedException, ExecutionException, TimeoutException {
         String result = fetcher.StarWarsFetcher.responseFromExternalServersParrallel(ES, GSON);
+        cachedResponse = result;
         return result;
     }
-
+    
+    @Path("cached")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getStarWarsCached() throws InterruptedException, ExecutionException, TimeoutException {
+        return cachedResponse;
+    }
 }
