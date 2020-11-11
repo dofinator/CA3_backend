@@ -18,9 +18,10 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 //Uncomment the line below, to temporarily disable this test
-@Disabled
+//@Disabled
 
 public class RenameMeResourceTest {
 
@@ -61,25 +62,25 @@ public class RenameMeResourceTest {
 
     // Setup the DataBase (used by the test-server and this test) in a known state BEFORE EACH TEST
     //TODO -- Make sure to change the EntityClass used below to use YOUR OWN (renamed) Entity class
-    @BeforeEach
-    public void setUp() {
-        EntityManager em = emf.createEntityManager();
-        r1 = new RenameMe("Some txt", "More text");
-        r2 = new RenameMe("aaa", "bbb");
-        try {
-            em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
-            em.persist(r1);
-            em.persist(r2);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
-    }
+//    @BeforeEach
+//    public void setUp() {
+//        EntityManager em = emf.createEntityManager();
+//        r1 = new RenameMe("Some txt", "More text");
+//        r2 = new RenameMe("aaa", "bbb");
+//        try {
+//            em.getTransaction().begin();
+//            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
+//            em.persist(r1);
+//            em.persist(r2);
+//            em.getTransaction().commit();
+//        } finally {
+//            em.close();
+//        }
+//    }
 
     @Test
     public void testServerIsUp() {
-        given().when().get("/xxx").then().statusCode(200);
+        given().when().get("/starwars").then().statusCode(200);
     }
 
     //This test assumes the database contains two rows
@@ -87,19 +88,41 @@ public class RenameMeResourceTest {
     public void testDummyMsg() throws Exception {
         given()
                 .contentType("application/json")
-                .get("/xxx/").then()
+                .get("/starwars/").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("msg", equalTo("Hello World"));
     }
 
+    
     @Test
-    public void testCount() throws Exception {
+    @Order(1)
+    public void testParrallel() throws Exception {
         given()
                 .contentType("application/json")
-                .get("/xxx/count").then()
+                .get("/starwars/parrallel").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("count", equalTo(2));
+                .body("peopleName", equalTo("Luke Skywalker"))
+                .body("planetName", equalTo("Yavin IV"))
+                .body("speciesName", equalTo("Death Star"))
+                .body("starshipName", equalTo("Wookie"))
+                .body("vehicleName", equalTo("Sand Crawler"));
+
+ 
+    }
+    @Test
+    @Order(2)
+    public void testCached() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("/starwars/cached").then()            
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("peopleName", equalTo("Luke Skywalker"))
+                .body("planetName", equalTo("Yavin IV"))
+                .body("speciesName", equalTo("Death Star"))
+                .body("starshipName", equalTo("Wookie"))
+                .body("vehicleName", equalTo("Sand Crawler"));
     }
 }
