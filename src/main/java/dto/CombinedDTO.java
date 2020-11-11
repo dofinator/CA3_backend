@@ -13,14 +13,14 @@ public class CombinedDTO {
     private String peopleName;
     private String planetName;
     private String speciesName;
-    private String startshipName;
+    private String starshipName;
     private String vehicleName;
 
     public CombinedDTO(PeopleDTO people, PlanetDTO planet, SpeciesDTO species, StarshipDTO starship, VehicleDTO vehicle) {
         this.peopleName = people.getName();
         this.planetName = planet.getName();
         this.speciesName = species.getName();
-        this.startshipName = starship.getName();
+        this.starshipName = starship.getName();
         this.vehicleName = vehicle.getName();
     }
 
@@ -49,11 +49,11 @@ public class CombinedDTO {
     }
 
     public String getStartshipName() {
-        return startshipName;
+        return starshipName;
     }
 
     public void setStartshipName(String startshipName) {
-        this.startshipName = startshipName;
+        this.starshipName = startshipName;
     }
 
     public String getVehicleName() {
