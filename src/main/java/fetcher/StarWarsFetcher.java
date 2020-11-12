@@ -17,11 +17,10 @@ import java.util.concurrent.TimeoutException;
 import utils.HttpUtils;
 
 public class StarWarsFetcher {
-
     private static final String PEOPLE_URL = "https://swapi.dev/api/people/1/";
     private static final String PLANET_URL = "https://swapi.dev/api/planets/3/";
-    private static final String SPECIES_URL = "https://swapi.dev/api/starships/9/";
-    private static final String STARSHIP_URL = "https://swapi.dev/api/species/3/";
+    private static final String SPECIES_URL = "https://swapi.dev/api/species/9/";
+    private static final String STARSHIP_URL = "https://swapi.dev/api/starships/3/";
     private static final String VEHICLE_URL = "https://swapi.dev/api/vehicles/4/";
 
     public static String responseFromExternalServersParrallel(ExecutorService threadPool, Gson gson) throws InterruptedException, ExecutionException, TimeoutException {

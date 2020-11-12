@@ -105,8 +105,8 @@ public class RenameMeResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("peopleName", equalTo("Luke Skywalker"))
                 .body("planetName", equalTo("Yavin IV"))
-                .body("speciesName", equalTo("Death Star"))
-                .body("starshipName", equalTo("Wookie"))
+                .body("speciesName", equalTo("Ewok"))
+                .body("starshipName", equalTo("Star Destroyer"))
                 .body("vehicleName", equalTo("Sand Crawler"));
 
  
@@ -121,8 +121,8 @@ public class RenameMeResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("peopleName", equalTo("Luke Skywalker"))
                 .body("planetName", equalTo("Yavin IV"))
-                .body("speciesName", equalTo("Death Star"))
-                .body("starshipName", equalTo("Wookie"))
+                .body("speciesName", equalTo("Ewok"))
+                .body("starshipName", equalTo("Star Destroyer"))
                 .body("vehicleName", equalTo("Sand Crawler"));
     }
 }
