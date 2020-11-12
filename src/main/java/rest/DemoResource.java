@@ -1,8 +1,14 @@
 package rest;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import entities.User;
+import facades.FacadeExample;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeoutException;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -23,6 +29,10 @@ import utils.EMF_Creator;
 public class DemoResource {
     
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
+    private static final ExecutorService ES = Executors.newCachedThreadPool();
+    private static final FacadeExample FACADE = FacadeExample.getFacadeExample(EMF);
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static String cachedResponse;
     @Context
     private UriInfo context;
 
@@ -67,5 +77,21 @@ public class DemoResource {
     public String getFromAdmin() {
         String thisuser = securityContext.getUserPrincipal().getName();
         return "{\"msg\": \"Hello to (admin) User: " + thisuser + "\"}";
+    }
+    
+    @Path("parrallel")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getStarWarsParrallel() throws InterruptedException, ExecutionException, TimeoutException {
+        String result = fetcher.StarWarsFetcher.responseFromExternalServersParrallel(ES, GSON);
+        cachedResponse = result;
+        return result;
+    }
+
+    @Path("cached")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getStarWarsCached() throws InterruptedException, ExecutionException, TimeoutException {
+        return cachedResponse;
     }
 }

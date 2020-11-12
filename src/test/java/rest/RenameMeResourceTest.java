@@ -80,7 +80,7 @@ public class RenameMeResourceTest {
 
     @Test
     public void testServerIsUp() {
-        given().when().get("/starwars").then().statusCode(200);
+        given().when().get("/info").then().statusCode(200);
     }
 
     //This test assumes the database contains two rows
@@ -88,10 +88,10 @@ public class RenameMeResourceTest {
     public void testDummyMsg() throws Exception {
         given()
                 .contentType("application/json")
-                .get("/starwars/").then()
+                .get("/info/").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("msg", equalTo("Hello World"));
+                .body("msg", equalTo("Hello anonymous"));
     }
 
     
@@ -100,7 +100,7 @@ public class RenameMeResourceTest {
     public void testParrallel() throws Exception {
         given()
                 .contentType("application/json")
-                .get("/starwars/parrallel").then()
+                .get("/info/parrallel").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("peopleName", equalTo("Luke Skywalker"))
@@ -116,7 +116,7 @@ public class RenameMeResourceTest {
     public void testCached() throws Exception {
         given()
                 .contentType("application/json")
-                .get("/starwars/cached").then()            
+                .get("/info/cached").then()            
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("peopleName", equalTo("Luke Skywalker"))
