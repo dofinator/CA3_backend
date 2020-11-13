@@ -1,16 +1,15 @@
-[![Build Status](https://travis-ci.org/dat3startcode/rest-jpa-devops-startcode.svg?branch=master)](https://travis-ci.org/dat3startcode/rest-jpa-devops-startcode)
+[![Build Status](https://travis-ci.com/dofinator/CA3_backend.svg?branch=master)](https://travis-ci.com/dofinator/CA3_backend)
 
-*This project is meant as start code for projects and exercises given in Flow-1+2 at http://cphbusiness.dk in the Study Program "AP degree in Computer Science"*
+Clone this startcode, and the matching startcode for the client-side: https://github.com/fiske-halsen/CA3_Frontend
+Before you begin, make sure that your docker-containers are running locally. Go to pom file and change the remote-server, to ready your ci-pipeline
 
-*Projects which are expected to use this start-code are projects that require all, or most of the following technologies:*
- - *JPA and REST*
-- *Testing, including database test*
-- *Testing, including tests of REST-API's*
-- *CI and CONTINUOUS DELIVERY*
 
-### Preconditions
-*In order to use this code, you should have a local developer setup + a "matching" droplet on Digital Ocean as described in the 3. semester guidelines* 
-# Getting Started
 
-This document explains how to use this code (build, test and deploy), locally with maven, and remotely with maven controlled by Travis
- - [How to use](https://docs.google.com/document/d/1K6s6Tt65bzB8bCSE_NUE8alJrLRNTKCwax3GEm4OjOE/edit?usp=sharing)
+1: Open the project, in your preffered editor. Security and JWT is already implementet, and dosen't need to be editet
+2: Modify the persistance file, if nescesary, to match your desirable database
+3: Create a repo, and push up the project. Setup Travis, and remember to add a remote password and username. If travis fails, use command: mvn clean test -Dremote.user=USER -Dremote.password=PW tomcat7:deploy
+4: Run your given API in a browser, to check what attributes is returned in JSON. 
+5: Now you can change your DTO classes, from the data you recived from the API.
+6: Rename the StarWarsFetcher class, to something relevant. Change all URLS to the ones you were given
+7: Change the names of endpoints, to something relevant for your API's.
+8: Finally, edit your rest-assured and facade test 
