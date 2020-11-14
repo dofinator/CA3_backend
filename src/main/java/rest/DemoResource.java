@@ -21,6 +21,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import utils.EMF_Creator;
+import utils.SetupTestUsers;
 
 /**
  * @author lam@cphbusiness.dk
@@ -94,4 +95,12 @@ public class DemoResource {
     public String getStarWarsCached() throws InterruptedException, ExecutionException, TimeoutException {
         return cachedResponse;
     }
+    
+    @Path("setUpUsers")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public void setUpUsers() {
+        SetupTestUsers.setUpUsers();
+    }
+    
 }
