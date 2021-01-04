@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import entities.User;
 import facades.FacadeExample;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -102,5 +103,25 @@ public class DemoResource {
     public void setUpUsers() {
         SetupTestUsers.setUpUsers();
     }
+    
+    @Path("planets")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getPlanets() throws InterruptedException, ExecutionException, TimeoutException, IOException {
+        String result = fetcher.StarWarsPlanetFetcher.responseFromExternalServersSequential(ES, GSON);
+        cachedResponse = result;
+        return result;
+    }
+    
+    @Path("countries")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getCountries() throws InterruptedException, ExecutionException, TimeoutException, IOException {
+        String result = fetcher.CountriesFetcher.responseFromExternalServersSequential(ES, GSON);
+        cachedResponse = result;
+        return result;
+    }
+    
+    
     
 }
