@@ -1,9 +1,7 @@
 package dto;
 
-/**
- *
- * @author sebas
- */
+
+//Håndtering af array UDEN NAVN. De attributer der skal trækkes SKAL navngives 
 public class CountriesDTO {
     
     public String Country;

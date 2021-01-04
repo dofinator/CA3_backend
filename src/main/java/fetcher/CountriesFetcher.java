@@ -11,10 +11,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import utils.HttpUtils;
 
-/**
- *
- * @author sebas
- */
+
+//
 public class CountriesFetcher {
     
     private static String COUNTRIES_URL = "https://api.covid19api.com/countries";
