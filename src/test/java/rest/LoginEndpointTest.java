@@ -1,5 +1,9 @@
 package rest;
 
+import entities.Address;
+import entities.CityInfo;
+import entities.Hobby;
+import entities.Phone;
 import entities.User;
 import entities.Role;
 
@@ -22,7 +26,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import utils.EMF_Creator;
 
-//Disabled
+@Disabled
 public class LoginEndpointTest {
 
     private static final int SERVER_PORT = 7777;
@@ -48,6 +52,12 @@ public class LoginEndpointTest {
         RestAssured.baseURI = SERVER_URL;
         RestAssured.port = SERVER_PORT;
         RestAssured.defaultParser = Parser.JSON;
+        
+                EntityManager em = emf.createEntityManager();
+  
+            //Delete existing users and roles to get a "fresh" database
+
+            //System.out.println("Saved test data to database");
     }
 
     @AfterAll
@@ -62,32 +72,7 @@ public class LoginEndpointTest {
     //TODO -- Make sure to change the EntityClass used below to use YOUR OWN (renamed) Entity class
     @BeforeEach
     public void setUp() {
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            //Delete existing users and roles to get a "fresh" database
-            em.createQuery("delete from User").executeUpdate();
-            em.createQuery("delete from Role").executeUpdate();
 
-            Role userRole = new Role("user");
-            Role adminRole = new Role("admin");
-            User user = new User("user", "test");
-            user.addRole(userRole);
-            User admin = new User("admin", "test");
-            admin.addRole(adminRole);
-            User both = new User("user_admin", "test");
-            both.addRole(userRole);
-            both.addRole(adminRole);
-            em.persist(userRole);
-            em.persist(adminRole);
-            em.persist(user);
-            em.persist(admin);
-            em.persist(both);
-            //System.out.println("Saved test data to database");
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
     }
 
     //This is how we hold on to the token after login, similar to that a client must store the token somewhere
@@ -220,5 +205,6 @@ public class LoginEndpointTest {
                 .body("code", equalTo(403))
                 .body("message", equalTo("Not authenticated - do login"));
     }
+
 
 }

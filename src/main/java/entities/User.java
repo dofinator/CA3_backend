@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,9 +36,21 @@ public class User implements Serializable {
   @JoinTable(name = "user_roles", joinColumns = {
     @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
     @JoinColumn(name = "role_name", referencedColumnName = "role_name")})
+  
+  
   @ManyToMany
   private List<Role> roleList = new ArrayList<>();
-
+  
+  @ManyToOne(cascade = CascadeType.PERSIST)
+  private Address address;
+  
+  @ManyToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
+  private List<Hobby> hobbies;
+  
+  @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+  private List<Phone> phones;
+  
+  
   public List<String> getRolesAsStrings() {
     if (roleList.isEmpty()) {
       return null;
@@ -56,8 +71,9 @@ public class User implements Serializable {
 
   public User(String userName, String userPass) {
     this.userName = userName;
-
     this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt());
+    this.hobbies = new ArrayList();
+    this.phones = new ArrayList();
   }
 
 
@@ -89,4 +105,63 @@ public class User implements Serializable {
     roleList.add(userRole);
   }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+        if(address != null){        
+            address.getUsers().add(this);
+           
+        }
+    }
+
+    public List<Hobby> getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(Hobby hobby) {
+        if(hobby != null){
+            hobby.getUsers().add(this);
+            this.hobbies.add(hobby);
+        }
+    }
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhone(Phone phone) {
+        if(phone !=null){
+            phone.setUser(this);
+            this.phones.add(phone);
+        }
+    }
+    public void removeHobby(Hobby hobby){
+        if(hobby != null){
+            this.hobbies.remove(hobby);
+            hobby.getUsers().remove(this);
+        }      
+    }
+        public void removePhone(Phone phone){
+        if(phone != null){
+            this.phones.remove(phone);
+            phone.setUser(null);
+        }      
+    }
+     public void removeAddress(Address address){
+        if(address != null){
+            this.setAddress(null);
+            address.getUsers().remove(this);
+        }      
+    }
+     public void removeRoles(Role role){
+         if(role !=null){
+             this.roleList.remove(role);
+             role.getUserList().remove(this);
+         }
+     }
+
 }
+
